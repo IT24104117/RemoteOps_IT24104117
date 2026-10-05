@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     struct sockaddr_in server_addr;
 
     memset(&server_addr, 0, sizeof(server_addr));
+
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(port);
 
@@ -36,7 +37,8 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    if (connect(sockfd, (struct sockaddr *)&server_addr,
+    if (connect(sockfd,
+                (struct sockaddr *)&server_addr,
                 sizeof(server_addr)) < 0)
     {
         perror("connect");
@@ -45,6 +47,38 @@ int main(int argc, char *argv[])
     }
 
     printf("Connected to Agent at %s:%d\n", ip, port);
+
+    char buffer[1024];
+
+    printf("Enter command: ");
+
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL)
+    {
+        close(sockfd);
+        return 1;
+    }
+
+    buffer[strcspn(buffer, "\n")] = '\0';
+
+    if (send(sockfd, buffer, strlen(buffer), 0) < 0)
+    {
+        perror("send");
+        close(sockfd);
+        return 1;
+    }
+
+    int n = recv(sockfd, buffer, sizeof(buffer) - 1, 0);
+
+    if (n < 0)
+    {
+        perror("recv");
+        close(sockfd);
+        return 1;
+    }
+
+    buffer[n] = '\0';
+
+    printf("Agent response: %s\n", buffer);
 
     close(sockfd);
 
