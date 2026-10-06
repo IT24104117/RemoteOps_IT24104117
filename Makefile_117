@@ -1,0 +1,14 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+LDFLAGS = -pthread
+
+all: agent_117 controller_117
+
+agent_117: agent_117.c
+	$(CC) $(CFLAGS) agent_117.c -o agent_117 $(LDFLAGS)
+
+controller_117: controller_117.c
+	$(CC) $(CFLAGS) controller_117.c -o controller_117 $(LDFLAGS)
+
+clean:
+	rm -f agent_117 controller_117
