@@ -25,9 +25,12 @@
 #define LOG_FILE "RemoteOps_IT24104117.log"
 void write_log(const char *format, ...);
 
-volatile int monitor_running = 0;
-pthread_t monitor_thread;
-struct sockaddr_in monitor_addr;
+typedef struct
+{
+    volatile int running;
+    pthread_t thread;
+    struct sockaddr_in addr;
+} MonitorContext;
 
 int recv_line(int fd, char *buffer, size_t max_size)
 {
@@ -136,17 +139,18 @@ int send_all(int fd, const void *buffer, size_t total)
 
 void *monitor_function(void *arg)
 {
-    int client_fd = *(int *)arg;
+    MonitorContext *monitor = (MonitorContext *)arg;
 
     int udp_fd = socket(AF_INET, SOCK_DGRAM, 0);
 
     if (udp_fd < 0)
     {
         perror("UDP socket");
+        monitor->running = 0;
         return NULL;
     }
 
-    while (monitor_running)
+    while (monitor->running)
     {
         struct sysinfo info;
 
@@ -174,19 +178,13 @@ void *monitor_function(void *arg)
                    message,
                    strlen(message),
                    0,
-                   (struct sockaddr *)&monitor_addr,
-                   sizeof(monitor_addr));
+                   (struct sockaddr *)&monitor->addr,
+                   sizeof(monitor->addr));
 
             printf("Monitor UDP sent: %s", message);
         }
 
         sleep(5);
-
-        /*
-         * Check whether TCP connection is still active.
-         */
-        if (client_fd < 0)
-            break;
     }
 
     close(udp_fd);
@@ -198,6 +196,9 @@ void *handle_client(void *arg)
 {
     int client_fd = *(int *)arg;
     free(arg);
+
+    MonitorContext monitor;
+    memset(&monitor, 0, sizeof(monitor));
 
     char buffer[BUFFER_SIZE];
 
@@ -765,7 +766,7 @@ else if (strncmp(buffer, "MONITOR START ", 14) == 0)
         continue;
     }
 
-    if (monitor_running)
+    if (monitor.running)
     {
         const char *response =
             "ERR 003 MONITOR_ALREADY_RUNNING SID:" SID "\n";
@@ -799,20 +800,20 @@ else if (strncmp(buffer, "MONITOR START ", 14) == 0)
         continue;
     }
 
-    memset(&monitor_addr, 0, sizeof(monitor_addr));
+    memset(&monitor.addr, 0, sizeof(monitor.addr));
 
-    monitor_addr.sin_family = AF_INET;
-    monitor_addr.sin_port = htons(udp_port);
-    monitor_addr.sin_addr = peer_addr.sin_addr;
+    monitor.addr.sin_family = AF_INET;
+    monitor.addr.sin_port = htons(udp_port);
+    monitor.addr.sin_addr = peer_addr.sin_addr;
 
-    monitor_running = 1;
+    monitor.running = 1;
 
-    if (pthread_create(&monitor_thread,
+    if (pthread_create(&monitor.thread,
                        NULL,
                        monitor_function,
-                       &client_fd) != 0)
+                       &monitor) != 0)
     {
-        monitor_running = 0;
+        monitor.running = 0;
 
         const char *response =
             "ERR 003 MONITOR_START_FAILED SID:" SID "\n";
@@ -824,7 +825,7 @@ else if (strncmp(buffer, "MONITOR START ", 14) == 0)
         continue;
     }
 
-    pthread_detach(monitor_thread);
+    pthread_detach(monitor.thread);
 
     const char *response =
         "OK MONITOR_STARTED SID:" SID "\n";
@@ -837,7 +838,7 @@ else if (strncmp(buffer, "MONITOR START ", 14) == 0)
 /* MONITOR STOP */
 else if (strcmp(buffer, "MONITOR STOP") == 0)
 {
-    if (!monitor_running)
+    if (!monitor.running)
     {
         const char *response =
             "ERR 003 MONITOR_NOT_RUNNING SID:" SID "\n";
@@ -849,7 +850,7 @@ else if (strcmp(buffer, "MONITOR STOP") == 0)
         continue;
     }
 
-    monitor_running = 0;
+    monitor.running = 0;
 
     const char *response =
         "OK MONITOR_STOPPED SID:" SID "\n";
