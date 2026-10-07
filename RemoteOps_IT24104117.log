@@ -439,3 +439,69 @@
 [2026-10-07 09:36:34] Command: QUIT
 [2026-10-07 09:36:34] Controller requested QUIT
 [2026-10-07 09:36:34] Controller disconnected
+[2026-10-07 09:50:57] Controller connected
+[2026-10-07 09:50:57] Command: AUTH OPS-4117
+[2026-10-07 09:50:57] Authentication successful
+[2026-10-07 09:50:57] Command: SYSINFO
+[2026-10-07 09:50:57] Command: LISTPROC
+[2026-10-07 09:50:57] Command: EXEC DATE
+[2026-10-07 09:50:57] Command: EXEC UPTIME
+[2026-10-07 09:50:57] Command: EXEC DISKFREE
+[2026-10-07 09:50:57] Command: EXEC HOSTNAME
+[2026-10-07 09:50:57] Command: EXEC WHOAMI
+[2026-10-07 09:50:57] Command: EXEC LS
+[2026-10-07 09:50:57] Command: PUT test.txt 58
+[2026-10-07 09:50:57] Command: PUT test.txt 58
+[2026-10-07 09:50:57] File received: test.txt (58 bytes)
+[2026-10-07 09:50:57] Command: GET test.txt
+[2026-10-07 09:50:57] File sent: test.txt (58 bytes)
+[2026-10-07 09:50:57] Command: MONITOR START 9500
+[2026-10-07 09:51:09] Command: MONITOR STOP
+[2026-10-07 09:51:09] Command: QUIT
+[2026-10-07 09:51:09] Controller requested QUIT
+[2026-10-07 09:51:09] Controller disconnected
+[2026-10-07 09:55:14] Controller connected
+[2026-10-07 09:55:14] Command: AUTH WRONG-4117
+[2026-10-07 09:55:14] Authentication failed
+[2026-10-07 09:56:56] Controller connected
+[2026-10-07 09:56:56] Command: AUTH OPS-4117
+[2026-10-07 09:56:56] Authentication successful
+[2026-10-07 09:56:56] Command: SYSINFO
+[2026-10-07 09:56:56] Command: LISTPROC
+[2026-10-07 09:56:56] Command: EXEC DATE
+[2026-10-07 09:56:56] Command: EXEC UPTIME
+[2026-10-07 09:56:56] Command: EXEC DISKFREE
+[2026-10-07 09:56:56] Command: EXEC HOSTNAME
+[2026-10-07 09:56:56] Command: EXEC WHOAMI
+[2026-10-07 09:56:56] Command: EXEC LS
+[2026-10-07 09:56:56] Command: PUT test.txt 58
+[2026-10-07 09:56:56] Command: PUT test.txt 58
+[2026-10-07 09:56:56] File received: test.txt (58 bytes)
+[2026-10-07 09:56:56] Command: GET test.txt
+[2026-10-07 09:56:56] File sent: test.txt (58 bytes)
+[2026-10-07 09:56:56] Command: MONITOR START 9500
+[2026-10-07 09:57:00] Controller connected
+[2026-10-07 09:57:00] Command: AUTH OPS-4117
+[2026-10-07 09:57:00] Authentication successful
+[2026-10-07 09:57:00] Command: SYSINFO
+[2026-10-07 09:57:00] Command: LISTPROC
+[2026-10-07 09:57:00] Command: EXEC DATE
+[2026-10-07 09:57:00] Command: EXEC UPTIME
+[2026-10-07 09:57:00] Command: EXEC DISKFREE
+[2026-10-07 09:57:00] Command: EXEC HOSTNAME
+[2026-10-07 09:57:00] Command: EXEC WHOAMI
+[2026-10-07 09:57:00] Command: EXEC LS
+[2026-10-07 09:57:00] Command: PUT test.txt 58
+[2026-10-07 09:57:00] Command: PUT test.txt 58
+[2026-10-07 09:57:00] File received: test.txt (58 bytes)
+[2026-10-07 09:57:00] Command: GET test.txt
+[2026-10-07 09:57:00] File sent: test.txt (58 bytes)
+[2026-10-07 09:57:00] Command: MONITOR START 9500
+[2026-10-07 09:57:08] Command: MONITOR STOP
+[2026-10-07 09:57:08] Command: QUIT
+[2026-10-07 09:57:08] Controller requested QUIT
+[2026-10-07 09:57:08] Controller disconnected
+[2026-10-07 09:57:12] Command: MONITOR STOP
+[2026-10-07 09:57:12] Command: QUIT
+[2026-10-07 09:57:12] Controller requested QUIT
+[2026-10-07 09:57:12] Controller disconnected
