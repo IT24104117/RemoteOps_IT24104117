@@ -418,3 +418,24 @@
 [2026-10-07 06:14:59] Command: GET missing_file_117.txt
 [2026-10-07 06:14:59] Command: HELLO
 [2026-10-07 06:14:59] Controller disconnected
+[2026-10-07 09:36:21] Controller connected
+[2026-10-07 09:36:21] Command: AUTH OPS-4117
+[2026-10-07 09:36:21] Authentication successful
+[2026-10-07 09:36:21] Command: SYSINFO
+[2026-10-07 09:36:21] Command: LISTPROC
+[2026-10-07 09:36:21] Command: EXEC DATE
+[2026-10-07 09:36:21] Command: EXEC UPTIME
+[2026-10-07 09:36:21] Command: EXEC DISKFREE
+[2026-10-07 09:36:21] Command: EXEC HOSTNAME
+[2026-10-07 09:36:21] Command: EXEC WHOAMI
+[2026-10-07 09:36:21] Command: EXEC LS
+[2026-10-07 09:36:21] Command: PUT test.txt 58
+[2026-10-07 09:36:21] Command: PUT test.txt 58
+[2026-10-07 09:36:22] File received: test.txt (58 bytes)
+[2026-10-07 09:36:22] Command: GET test.txt
+[2026-10-07 09:36:22] File sent: test.txt (58 bytes)
+[2026-10-07 09:36:22] Command: MONITOR START 9500
+[2026-10-07 09:36:34] Command: MONITOR STOP
+[2026-10-07 09:36:34] Command: QUIT
+[2026-10-07 09:36:34] Controller requested QUIT
+[2026-10-07 09:36:34] Controller disconnected
